@@ -13,9 +13,13 @@ struct Chunk{
 	};
 	Chunk generatorChunk(){
 			Chunk chunk;
+			chunk.type = (rand() % 1 < 0) ? 1:0;
 			for(int y = 0; y < 10; y++){
 				for(int x = 0; x < 10; x++){
-					chunk.tiles[y][x] = (rand() % 100 < 30) ? 1:0;
+					if(chunk.type == 0)
+					chunk.tiles[y][x] = (rand() % 100 < 45) ? 1:0;
+					else if(chunk.type == 1)
+					chunk.tiles[y][x] = (rand() % 100 < 10) ? 1:0;
 					}
 				}
 				return chunk;
@@ -168,6 +172,46 @@ SDL_Rect& right)
     if(x >= right.x && x <= right.x+right.w &&
        y >= right.y && y <= right.y+right.h)
         rightPressed = true;
+}
+if (sobitie.type == SDL_KEYDOWN) {
+    switch(sobitie.key.keysym.sym) {
+        case SDLK_w:
+        case SDLK_UP:
+            upPressed = true;
+            break;
+        case SDLK_s:
+        case SDLK_DOWN:
+            downPressed = true;
+            break;
+        case SDLK_a:
+        case SDLK_LEFT:
+            leftPressed = true;
+            break;
+        case SDLK_d:
+        case SDLK_RIGHT:
+            rightPressed = true;
+            break;
+    }
+}
+if (sobitie.type == SDL_KEYUP) {
+    switch(sobitie.key.keysym.sym) {
+        case SDLK_w:
+        case SDLK_UP:
+            upPressed = false;
+            break;
+        case SDLK_s:
+        case SDLK_DOWN:
+            downPressed = false;
+            break;
+        case SDLK_a:
+        case SDLK_LEFT:
+            leftPressed = false;
+            break;
+        case SDLK_d:
+        case SDLK_RIGHT:
+            rightPressed = false;
+            break;
+    }
 }
 float speed = 0.025;
 if(downPressed)
